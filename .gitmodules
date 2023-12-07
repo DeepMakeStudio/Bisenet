@@ -1,0 +1,3 @@
+[submodule "BiSeNet"]
+	path = BiSeNet
+	url = ./BiSeNet
