@@ -10,11 +10,11 @@ import threading
 import time
 import psutil
 import sys
-sys.path.append(os.path.dirname(__file__))
+sys.path.append(os.path.join(os.path.dirname(__file__), "Bisenet"))
 import pickle
 
 
-from model import BiSeNet
+from Bisenet.model import BiSeNet
 import torch
 import torchvision.transforms as transforms
 import json
