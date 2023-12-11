@@ -91,6 +91,10 @@ async def generate_output(img_id: str, skin: bool = True, l_brow: bool = False, 
 
     image = image.resize((512, 512), Image.BILINEAR)
 
+    #remove alpha if it exists
+    if image.mode == 'RGBA':
+        image = image.convert('RGB')
+
     to_tensor = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
