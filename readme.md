@@ -14,4 +14,4 @@ To install, you need to download and install [Anaconda](https://www.anaconda.com
 
 Clone this repo into the "plugin" folder of your DeepMake installation.
 
-Next open an Anaconda prompt and go to the plugin/diffusers/ folder.  Run `conda env create -f environment.yml` to create the environment.  Finally, run DeepMake as normal.
+Next open an Anaconda prompt and go to the folder you cloned into.  Run `conda env create -f environment.yml` or if on mac `conda env create -f environment_mac.yml` to create the environment.  Finally, run DeepMake as normal.
