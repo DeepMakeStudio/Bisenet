@@ -1,3 +1,3 @@
 [submodule "BiSeNet"]
 	path = BiSeNet
-	url = ./BiSeNet
+	url = https://github.com/zllrunning/face-parsing.PyTorch

@@ -14,7 +14,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "Bisenet"))
 import pickle
 
 
-from Bisenet.model import BiSeNet
+from model import BiSeNet
 import torch
 import torchvision.transforms as transforms
 import json
