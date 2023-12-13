@@ -1,0 +1,24 @@
+name: bisenet
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - pip
+  - python
+  - pytorch::pytorch 
+  - torchvision
+  - torchaudio
+  - pip:
+      - fastapi
+      - huey
+      - matplotlib
+      - opencv-python
+      - psutil
+      - pydantic
+      - pymemcache
+      - python-multipart
+      - requests
+      - sniffio
+      - starlette
+      - tqdm
+      - uvicorn
