@@ -10,11 +10,9 @@ import threading
 import time
 import psutil
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), "Bisenet"))
 import pickle
 
 
-from model import BiSeNet
 import torch
 import torchvision.transforms as transforms
 import json
@@ -23,6 +21,9 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from plugin import Plugin, fetch_image, store_image
 from .config import plugin, config, endpoints
+
+sys.path.append(os.path.join(os.path.dirname(__file__), "Bisenet"))
+from model import BiSeNet
 
 app = FastAPI()
 
