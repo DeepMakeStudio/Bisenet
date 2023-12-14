@@ -8,7 +8,7 @@ plugin = {
     "env": "bisenet"
 }
 config = {
-    "model_name": "plugin/bisenet/res/cp/79999_iter.pth",
+    "model_name": "plugin/bisenet/79999_iter.pth",
     "model_dtype": "fp32" if sys.platform == "darwin" else "fp16"
 }
 endpoints = {
