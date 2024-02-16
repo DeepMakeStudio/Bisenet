@@ -79,7 +79,7 @@ def self_terminate():
 def shutdown():
     # sys.exit()
     threading.Thread(target=self_terminate, daemon=True).start()
-    return {"success": True}
+    return {"Success": True}
 
 @app.get("/execute/{img_id}")
 async def generate_output(img_id: str, skin: bool = True, l_brow: bool = False, r_brow: bool = False, l_eye: bool = False, 
@@ -135,7 +135,7 @@ async def generate_output(img_id: str, skin: bool = True, l_brow: bool = False, 
 
     img_id = store_image(output.getvalue())
 
-    return {"status": "success", "output_mask": img_id}
+    return {"status": "Success", "output_mask": img_id}
 
 args = {"plugin": plugin, "config": config, "endpoints": endpoints}
 class BisenetPlugin(Plugin):
