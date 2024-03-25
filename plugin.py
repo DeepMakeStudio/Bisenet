@@ -22,16 +22,21 @@ import matplotlib.pyplot as plt
 from plugin import Plugin, fetch_image, store_image
 from .config import plugin, config, endpoints
 
+# Still need for imports inside of the Bisenet repo, relative import isn't enough
 sys.path.append(os.path.join(os.path.dirname(__file__), "Bisenet"))
-from model import BiSeNet
+from .Bisenet.model import BiSeNet
 
 app = FastAPI()
 
 @app.get("/set_model")
-def set_model():
+def set_model(plugin_name):
     global net 
+    global bisenet_plugin
+    args = {"plugin": plugin, "config": config, "endpoints": endpoints, "name": plugin_name}
+    bisenet_plugin = BisenetPlugin(Namespace(**args))
+
     net = BiSeNet(n_classes=19)
-    save_pth = config["model_name"]
+    save_pth = f"plugin/{plugin_name}/" + config["model_name"]
     net.load_state_dict(torch.load(save_pth))
     net.eval()
     if torch.cuda.is_available():
@@ -39,15 +44,16 @@ def set_model():
 
     return {"status": "Success", "detail": f"Model set successfully to config['model_name']"}
 
-@app.on_event("startup")
-async def startup_event():
+@app.get("/startup/{plugin_name}")
+async def startup_event(plugin_name: str):
     print("Starting up")
     # A slight delay to ensure the app has started up.
     try:
-        set_model()
+        set_model(plugin_name)
         print("Successfully started up")
+        print(bisenet_plugin.plugin_name)
         bisenet_plugin.notify_main_system_of_startup("True")
-    except:
+    except Exception as e:
         bisenet_plugin.notify_main_system_of_startup("False")
 
 @app.get("/get_info/")
@@ -137,14 +143,10 @@ async def generate_output(img_id: str, skin: bool = True, l_brow: bool = False, 
 
     return {"status": "Success", "output_mask": img_id}
 
-args = {"plugin": plugin, "config": config, "endpoints": endpoints}
 class BisenetPlugin(Plugin):
     """
     Prediction inference.
     """
     def __init__(self, arguments: "Namespace") -> None:
         super().__init__(arguments)
-        self.plugin_name = "Bisenet"
 
-bisenet_plugin = BisenetPlugin(Namespace(**args))
-set_model()
