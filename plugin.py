@@ -23,7 +23,7 @@ from plugin import Plugin, fetch_image, store_image
 from .config import plugin, config, endpoints
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "Bisenet"))
-from model import BiSeNet
+from .Bisenet.model import BiSeNet
 
 app = FastAPI()
 
@@ -89,6 +89,7 @@ async def generate_output(img_id: str, skin: bool = True, l_brow: bool = False, 
                           hair: bool = False, hat: bool = False):
     img_data = fetch_image(img_id)
     image = Image.open(io.BytesIO(img_data))
+    img_size = image.size
 
     image = image.resize((512, 512), Image.BILINEAR)
 
@@ -131,7 +132,8 @@ async def generate_output(img_id: str, skin: bool = True, l_brow: bool = False, 
     for att in selected_atts:
         outimage += seg_maps[att]
 
-    Image.fromarray((outimage*255).astype(np.uint8)).save(output, format="PNG")
+    output_image = Image.fromarray((outimage*255).astype(np.uint8))
+    output_image.resize(img_size, Image.BILINEAR).save(output, format="PNG")
 
     img_id = store_image(output.getvalue())
 
