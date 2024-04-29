@@ -108,6 +108,8 @@ async def generate_output(img_id: str, skin: bool = True, l_brow: bool = False, 
 
     if torch.cuda.is_available():
         img = img.cuda()
+    elif torch.backends.mps.is_available():
+        img = img.to("mps")
 
     atts = ['skin', 'l_brow', 'r_brow', 'l_eye', 'r_eye', 'eye_g', 'l_ear', 'r_ear', 'ear_r',
             'nose', 'mouth', 'u_lip', 'l_lip', 'neck', 'neck_l', 'cloth', 'hair', 'hat']
