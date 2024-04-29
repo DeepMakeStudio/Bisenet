@@ -12,7 +12,6 @@ import psutil
 import sys
 import pickle
 
-
 import torch
 import torchvision.transforms as transforms
 import json
@@ -32,10 +31,12 @@ def set_model():
     global net 
     net = BiSeNet(n_classes=19)
     save_pth = config["model_name"]
-    net.load_state_dict(torch.load(save_pth))
+    net.load_state_dict(torch.load(save_pth, map_location=torch.device('cpu')))
     net.eval()
     if torch.cuda.is_available():
         net.cuda()
+    elif torch.backends.mps.is_available():
+        net.to("mps")
 
     return {"status": "Success", "detail": f"Model set successfully to config['model_name']"}
 
