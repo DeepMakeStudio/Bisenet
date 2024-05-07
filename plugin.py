@@ -30,7 +30,7 @@ app = FastAPI()
 def set_model():
     global net 
     net = BiSeNet(n_classes=19)
-    save_pth = config["model_name"]
+    save_pth = os.path.join(os.path.dirname(__file__), "79999_iter.pth")
     net.load_state_dict(torch.load(save_pth, map_location=torch.device('cpu')))
     net.eval()
     if torch.cuda.is_available():
@@ -83,10 +83,10 @@ def shutdown():
     return {"Success": True}
 
 @app.get("/execute/{img_id}")
-async def generate_output(img_id: str, skin: bool = True, l_brow: bool = False, r_brow: bool = False, l_eye: bool = False, 
-                          r_eye: bool = False, eye_g: bool = False, l_ear: bool = False, r_ear: bool = False, 
-                          ear_r: bool = False, nose: bool = False, mouth: bool = False, u_lip: bool = False, 
-                          l_lip: bool = False, neck: bool = False, neck_l: bool = False, cloth: bool = False, 
+async def generate_output(img_id: str, skin: bool = True, left_eyebrow: bool = False, right_eyebrow: bool = False, left_eye: bool = False, 
+                          right_eye: bool = False, eyeglasses: bool = False, left_ear: bool = False, right_ear: bool = False, 
+                          earring: bool = False, nose: bool = False, mouth: bool = False, upper_lip: bool = False, 
+                          lower_lip: bool = False, neck: bool = False, necklace: bool = False, clothing: bool = False, 
                           hair: bool = False, hat: bool = False):
     img_data = fetch_image(img_id)
     image = Image.open(io.BytesIO(img_data))
@@ -111,8 +111,8 @@ async def generate_output(img_id: str, skin: bool = True, l_brow: bool = False, 
     elif torch.backends.mps.is_available():
         img = img.to("mps")
 
-    atts = ['skin', 'l_brow', 'r_brow', 'l_eye', 'r_eye', 'eye_g', 'l_ear', 'r_ear', 'ear_r',
-            'nose', 'mouth', 'u_lip', 'l_lip', 'neck', 'neck_l', 'cloth', 'hair', 'hat']
+    atts = ['skin', 'left_eyebrow', 'right_eyebrow', 'left_eye', 'right_eye', 'eyeglasses', 'left_ear', 'right_ear', 
+            'earring', 'nose', 'mouth', 'upper_lip', 'lower_lip', 'neck', 'necklace', 'clothing', 'hair', 'hat']
     selected_atts = []
     for attr in atts:
         if eval(attr):
