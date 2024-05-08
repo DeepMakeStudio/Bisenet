@@ -16,7 +16,7 @@ endpoints = {
         "inputs": {
             "img": "Image",
             "skin": "Bool(default=true, optional=true, help='whether to include skin in the mask')",
-            "left_eybrow": "Bool(default=false, optional=true, help='whether to include left eyebrow in the mask')",
+            "left_eyebrow": "Bool(default=false, optional=true, help='whether to include left eyebrow in the mask')",
             "right_eyebrow": "Bool(default=false, optional=true, help='whether to include right eyebrow in the mask')",
             "left_eye": "Bool(default=false, optional=true, help='whether to include left eye in the mask')",
             "right_eye": "Bool(default=false, optional=true, help='whether to include right eye in the mask')",
