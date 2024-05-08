@@ -148,8 +148,7 @@ class BisenetPlugin(Plugin):
     Prediction inference.
     """
     def __init__(self, arguments: "Namespace") -> None:
-        super().__init__(arguments)
-        self.plugin_name = "Bisenet"
+        super().__init__(arguments, plugin_name="Bisenet")
 
 bisenet_plugin = BisenetPlugin(Namespace(**args))
 set_model()
