@@ -5,7 +5,10 @@ plugin = {
     "Version": "0.1.0", 
     "Author": "DeepMake", 
     "Description": "Face segmentation using BiSeNet", 
-    "env": "bisenet"
+    "env": "bisenet",
+    "memory": 1800,
+    "model_memory": 1000
+
 }
 config = {
     "model_dtype": "fp32" if sys.platform == "darwin" else "fp16"
